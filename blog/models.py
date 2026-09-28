@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.utils.text import slugify
 
@@ -10,7 +9,6 @@ class Category(models.Model):
         return self.name
 
 
-# Modelo Tag adicionado
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
@@ -20,18 +18,20 @@ class Tag(models.Model):
 
 class Post(models.Model):
     STATUS_CHOICES = (
-        ('draft', 'Draft'),
-        ('published', 'Published'),
+        ("draft", "Draft"),
+        ("published", "Published"),
     )
 
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     content = models.TextField()
+
     status = models.CharField(
-        max_length=10, 
-        choices=STATUS_CHOICES, 
+        max_length=10,
+        choices=STATUS_CHOICES,
         default="published"
     )
+
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
@@ -39,14 +39,28 @@ class Post(models.Model):
         blank=True,
         related_name="posts"
     )
-    # Relação ManyToMany adicionada
-    tags = models.ManyToManyField(Tag, blank=True, related_name="posts")
+
+    tags = models.ManyToManyField(
+        Tag,
+        blank=True,
+        related_name="posts"
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+
+            while Post.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+
+            self.slug = slug
+
         super().save(*args, **kwargs)
 
     def __str__(self):
