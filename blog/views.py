@@ -4,6 +4,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 from .models import Post, Category
+from .forms import PostForm
 
 
 # Home page
@@ -77,7 +78,7 @@ post_detail = PostDetailView.as_view()
 # Create post
 class PostCreateView(CreateView):
     model = Post
-    fields = ["title", "content", "category", "tags", "status"]
+    form_class = PostForm
     template_name = "blog/post_form.html"
 
     def get_success_url(self):
@@ -93,7 +94,7 @@ post_create = PostCreateView.as_view()
 # Update post
 class PostUpdateView(UpdateView):
     model = Post
-    fields = ["title", "content", "category", "tags", "status"]
+    form_class = PostForm
     template_name = "blog/post_form.html"
 
     def get_success_url(self):
