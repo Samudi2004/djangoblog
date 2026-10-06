@@ -32,6 +32,13 @@ class Post(models.Model):
         default="published"
     )
 
+    # NEW
+    cover_image = models.ImageField(
+        upload_to="post_covers/",
+        blank=True,
+        null=True
+    )
+
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,

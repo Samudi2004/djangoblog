@@ -6,7 +6,14 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ["title", "content", "category", "tags", "status"]
+        fields = [
+            "title",
+            "content",
+            "cover_image",
+            "category",
+            "tags",
+            "status",
+        ]
 
         widgets = {
             "content": forms.Textarea(

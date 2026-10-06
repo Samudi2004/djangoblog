@@ -8,6 +8,12 @@
 
 <h1>{{ post.title }}</h1>
 
+{% if post.cover_image %}
+<img src="{{ post.cover_image.url }}"
+     class="img-fluid rounded mb-3"
+     alt="{{ post.title }}">
+{% endif %}
+
 <p>
     <strong>Category:</strong>
     {{ post.category.name|default:"Uncategorized" }}
