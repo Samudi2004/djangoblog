@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from PIL import Image
 
 
 class Category(models.Model):
@@ -32,7 +33,6 @@ class Post(models.Model):
         default="published"
     )
 
-    # NEW
     cover_image = models.ImageField(
         upload_to="post_covers/",
         blank=True,
@@ -68,7 +68,16 @@ class Post(models.Model):
 
             self.slug = slug
 
+        # මුලින් save කරනවා
         super().save(*args, **kwargs)
+
+        # Cover image එක resize කරනවා
+        if self.cover_image:
+            img = Image.open(self.cover_image.path)
+
+            if img.height > 800 or img.width > 800:
+                img.thumbnail((800, 800))
+                img.save(self.cover_image.path)
 
     def __str__(self):
         return self.title

@@ -1,13 +1,17 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth import login
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 from .models import Post, Category
-from .forms import PostForm
+from .forms import PostForm, RegisterForm
 
 
+# ==========================================
 # Home page
+# ==========================================
+
 def home(request):
     return render(
         request,
@@ -18,7 +22,10 @@ def home(request):
     )
 
 
+# ==========================================
 # About page
+# ==========================================
+
 def about(request):
     return render(
         request,
@@ -29,7 +36,10 @@ def about(request):
     )
 
 
+# ==========================================
 # Contact page
+# ==========================================
+
 def contact(request):
     return render(
         request,
@@ -40,7 +50,28 @@ def contact(request):
     )
 
 
-# Blog post list page
+# ==========================================
+# User Registration
+# ==========================================
+
+class RegisterView(CreateView):
+    form_class = RegisterForm
+    template_name = "blog/register.html"
+    success_url = reverse_lazy("home")
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        login(self.request, self.object)
+        return response
+
+
+register = RegisterView.as_view()
+
+
+# ==========================================
+# Blog Post List
+# ==========================================
+
 class PostListView(ListView):
     model = Post
     template_name = "blog/post_list.html"
@@ -58,7 +89,10 @@ class PostListView(ListView):
 post_list = PostListView.as_view()
 
 
-# Blog post detail page
+# ==========================================
+# Blog Post Detail
+# ==========================================
+
 class PostDetailView(DetailView):
     model = Post
     template_name = "blog/post_detail.html"
@@ -68,14 +102,17 @@ class PostDetailView(DetailView):
         return get_object_or_404(
             Post,
             slug=self.kwargs["slug"],
-            status="published"
+            status="published",
         )
 
 
 post_detail = PostDetailView.as_view()
 
 
-# Create post
+# ==========================================
+# Create Post
+# ==========================================
+
 class PostCreateView(CreateView):
     model = Post
     form_class = PostForm
@@ -84,14 +121,17 @@ class PostCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy(
             "post_detail",
-            kwargs={"slug": self.object.slug}
+            kwargs={"slug": self.object.slug},
         )
 
 
 post_create = PostCreateView.as_view()
 
 
-# Update post
+# ==========================================
+# Update Post
+# ==========================================
+
 class PostUpdateView(UpdateView):
     model = Post
     form_class = PostForm
@@ -100,14 +140,17 @@ class PostUpdateView(UpdateView):
     def get_success_url(self):
         return reverse_lazy(
             "post_detail",
-            kwargs={"slug": self.object.slug}
+            kwargs={"slug": self.object.slug},
         )
 
 
 post_update = PostUpdateView.as_view()
 
 
-# Delete post
+# ==========================================
+# Delete Post
+# ==========================================
+
 class PostDeleteView(DeleteView):
     model = Post
     template_name = "blog/post_confirm_delete.html"

@@ -5,6 +5,9 @@ urlpatterns = [
     # Home
     path("", views.home, name="home"),
 
+    # Register
+    path("register/", views.RegisterView.as_view(), name="register"),
+
     # About
     path("about/", views.about, name="about"),
 
@@ -15,7 +18,11 @@ urlpatterns = [
     path("posts/", views.PostListView.as_view(), name="post_list"),
 
     # Create post
-    path("posts/new/", views.PostCreateView.as_view(), name="post_create"),
+    path(
+        "posts/new/",
+        views.PostCreateView.as_view(),
+        name="post_create",
+    ),
 
     # Edit post
     path(
