@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from django.contrib.messages import constants as messages
 
 # --------------------------------------------------
 # Base Directory
@@ -159,3 +160,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+# --------------------------------------------------
+# Message Tags
+# --------------------------------------------------
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",
+}
+
+# --------------------------------------------------
+# Email Backend (Development)
+# --------------------------------------------------
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

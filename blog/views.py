@@ -1,8 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.contrib.auth import login
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.db import models
 
 from .models import Post, Category
 from .forms import PostForm, RegisterForm
@@ -78,7 +81,9 @@ class PostListView(ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        return Post.objects.all().order_by("-created_at")
+        return Post.objects.filter(
+            status="published"
+        ).order_by("-created_at")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -90,6 +95,25 @@ post_list = PostListView.as_view()
 
 
 # ==========================================
+# My Posts
+# ==========================================
+
+class MyPostsView(LoginRequiredMixin, ListView):
+    model = Post
+    template_name = "blog/my_posts.html"
+    paginate_by = 6
+    login_url = "login"
+
+    def get_queryset(self):
+        return Post.objects.filter(
+            author=self.request.user
+        ).order_by("-created_at")
+
+
+my_posts = MyPostsView.as_view()
+
+
+# ==========================================
 # Blog Post Detail
 # ==========================================
 
@@ -98,12 +122,18 @@ class PostDetailView(DetailView):
     template_name = "blog/post_detail.html"
     context_object_name = "post"
 
-    def get_object(self):
-        return get_object_or_404(
-            Post,
-            slug=self.kwargs["slug"],
-            status="published",
+    def get_queryset(self):
+        posts = Post.objects.filter(
+            status="published"
         )
+
+        if self.request.user.is_authenticated:
+            posts = Post.objects.filter(
+                models.Q(status="published") |
+                models.Q(author=self.request.user)
+            )
+
+        return posts
 
 
 post_detail = PostDetailView.as_view()
@@ -113,10 +143,19 @@ post_detail = PostDetailView.as_view()
 # Create Post
 # ==========================================
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = "blog/post_form.html"
+    login_url = "login"
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        messages.success(
+            self.request,
+            "Post published successfully!"
+        )
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy(
@@ -132,10 +171,14 @@ post_create = PostCreateView.as_view()
 # Update Post
 # ==========================================
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = "blog/post_form.html"
+    login_url = "login"
+
+    def test_func(self):
+        return self.get_object().author == self.request.user
 
     def get_success_url(self):
         return reverse_lazy(
@@ -151,10 +194,26 @@ post_update = PostUpdateView.as_view()
 # Delete Post
 # ==========================================
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = "blog/post_confirm_delete.html"
     success_url = reverse_lazy("post_list")
+    login_url = "login"
+
+    def test_func(self):
+        return self.get_object().author == self.request.user
 
 
 post_delete = PostDeleteView.as_view()
+
+
+# ==========================================
+# Custom 403 Page
+# ==========================================
+
+def custom_403(request, exception=None):
+    return render(
+        request,
+        "blog/403.html",
+        status=403,
+    )

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
 from PIL import Image
@@ -26,6 +27,13 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     content = models.TextField()
+
+    # NEW FIELD
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="posts",
+    )
 
     status = models.CharField(
         max_length=10,
@@ -68,10 +76,8 @@ class Post(models.Model):
 
             self.slug = slug
 
-        # මුලින් save කරනවා
         super().save(*args, **kwargs)
 
-        # Cover image එක resize කරනවා
         if self.cover_image:
             img = Image.open(self.cover_image.path)
 

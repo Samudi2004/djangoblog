@@ -6,16 +6,57 @@ Login
 
 {% block content %}
 
-<h1>Login</h1>
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
 
-<form method="post">
-    {% csrf_token %}
+        <div class="card shadow-sm mt-4">
+            <div class="card-body">
 
-    {{ form.as_p }}
+                <h2 class="text-center mb-4">
+                    Login
+                </h2>
 
-    <button type="submit" class="btn btn-primary">
-        Log in
-    </button>
-</form>
+                {% if form.errors %}
+                <div class="alert alert-danger">
+                    Invalid username or password.
+                </div>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Username
+                        </label>
+                        {{ form.username }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Password
+                        </label>
+                        {{ form.password }}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        Log in
+                    </button>
+                </form>
+
+                <hr>
+
+                <p class="text-center mb-0">
+                    Don't have an account?
+                    <a href="{% url 'register' %}">
+                        Register here
+                    </a>
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+</div>
 
 {% endblock %}

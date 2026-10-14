@@ -22,87 +22,18 @@ Blog Posts | DjangoBlog
     </div>
 
     <div class="row">
-
         {% for post in page_obj %}
-
-        <div class="col-md-4 mb-4">
-
-            <div class="card h-100 shadow-sm">
-
-                {% if post.cover_image %}
-                    <img src="{{ post.cover_image.url }}"
-                         class="card-img-top"
-                         alt="{{ post.title }}"
-                         style="height:220px; object-fit:cover;">
-                {% endif %}
-
-                <div class="card-body d-flex flex-column">
-
-                    <h3 class="card-title">
-                        {{ post.title }}
-                    </h3>
-
-                    <p class="text-muted">
-                        <strong>Category:</strong>
-                        {{ post.category.name|default:"Uncategorized" }}
-                    </p>
-
-                    <p class="card-text">
-                        {{ post.content|truncatewords:20 }}
-                    </p>
-
-                    <div class="mt-auto">
-                        {% if post.slug %}
-                            <a href="{% url 'post_detail' slug=post.slug %}"
-                               class="btn btn-primary">
-                                Read More
-                            </a>
-                        {% else %}
-                            <span class="text-danger">
-                                Slug Missing
-                            </span>
-                        {% endif %}
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
+            {% include "blog/partials/_post_card.html" %}
         {% empty %}
-
-        <div class="col-12">
-            <div class="alert alert-info text-center">
-                No posts yet.
+            <div class="col-12">
+                <p class="text-center text-muted py-5">
+                    No posts yet — <a href="{% url 'post_create' %}">write the first one!</a>
+                </p>
             </div>
-        </div>
-
         {% endfor %}
-
     </div>
 
-    <div class="d-flex justify-content-center mt-4">
-
-        {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}"
-               class="btn btn-primary me-2">
-                Previous
-            </a>
-        {% endif %}
-
-        <span class="align-self-center">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-        </span>
-
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}"
-               class="btn btn-primary ms-2">
-                Next
-            </a>
-        {% endif %}
-
-    </div>
+    {% include "blog/partials/_pagination.html" %}
 
 </div>
 
