@@ -1,6 +1,51 @@
 {% extends "blog/base.html" %}
-{% block title %}About{% endblock %}
+
+{% block title %}About | DjangoBlog{% endblock %}
+
 {% block content %}
-    <h1>About {{ team }}</h1>
-    <p>This is a Django template. Variables use double curly braces.</p>
+
+<h1 class="fw-bold mb-2">About Us</h1>
+<span class="badge text-bg-secondary mb-2">About</span>
+<p class="text-muted mb-4">{{ content }}</p>
+
+<div class="row g-4 mb-5">
+
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height:150px;">Mission</div>
+            <div class="card-body">
+                <h4 class="card-title">Our Mission <span class="badge text-bg-secondary fs-6">goal</span></h4>
+                <p class="text-muted small">By DjangoBlog · {% now "M d, Y" %}</p>
+                <p>Make blogging easy for everyone.</p>
+                <a href="{% url 'post_list' %}" class="btn btn-primary btn-sm">Read more</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height:150px;">Features</div>
+            <div class="card-body">
+                <h4 class="card-title">What You Can Do <span class="badge text-bg-secondary fs-6">features</span></h4>
+                <p class="text-muted small">By DjangoBlog · {% now "M d, Y" %}</p>
+                <p>Write posts, add images, pick categories, and edit anytime.</p>
+                <a href="{% url 'post_list' %}" class="btn btn-primary btn-sm">Read more</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height:150px;">Tech</div>
+            <div class="card-body">
+                <h4 class="card-title">Built With <span class="badge text-bg-secondary fs-6">tech</span></h4>
+                <p class="text-muted small">By DjangoBlog · {% now "M d, Y" %}</p>
+                <p>Django, Python, and Bootstrap 5.</p>
+                <a href="{% url 'contact' %}" class="btn btn-primary btn-sm">Contact us</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 {% endblock %}
