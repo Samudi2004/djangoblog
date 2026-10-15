@@ -23,9 +23,6 @@ def home(request):
             "title": "This is the Djangoblog Homepage.",
         }
     )
-
-
-# ==========================================
 # About page
 # ==========================================
 
