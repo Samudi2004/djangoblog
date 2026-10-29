@@ -1,50 +1,131 @@
 {% extends "blog/base.html" %}
+{% load static %}
 
 {% block title %}About | DjangoBlog{% endblock %}
 
+{% block hero %}
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <i class="fa-solid fa-spa hero-flower"></i>
+
+        <h1 id="heroTitle">About DjangoBlog</h1>
+
+        <p id="heroSubtitle">
+            Learn more about our journey, our mission, and the people behind DjangoBlog.
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
 {% block content %}
 
-<h1 class="fw-bold mb-2">About Us</h1>
-<span class="badge text-bg-secondary mb-2">About</span>
-<p class="text-muted mb-4">{{ content }}</p>
+<h2 class="section-title">Who We Are</h2>
 
-<div class="row g-4 mb-5">
+<p class="section-sub">
+    DjangoBlog is a modern blogging platform created for learning, creativity, and sharing stories.
+</p>
 
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height:150px;">Mission</div>
-            <div class="card-body">
-                <h4 class="card-title">Our Mission <span class="badge text-bg-secondary fs-6">goal</span></h4>
-                <p class="text-muted small">By DjangoBlog · {% now "M d, Y" %}</p>
-                <p>Make blogging easy for everyone.</p>
-                <a href="{% url 'post_list' %}" class="btn btn-primary btn-sm">Read more</a>
-            </div>
+<div class="cards">
+
+    <!-- Mission -->
+    <article class="post-card">
+
+        <div class="card-img">
+            <img src="{% static 'blog/css/img/mission.jpg' %}" alt="Mission">
+            <span class="badge-cat">Mission</span>
         </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height:150px;">Features</div>
-            <div class="card-body">
-                <h4 class="card-title">What You Can Do <span class="badge text-bg-secondary fs-6">features</span></h4>
-                <p class="text-muted small">By DjangoBlog · {% now "M d, Y" %}</p>
-                <p>Write posts, add images, pick categories, and edit anytime.</p>
-                <a href="{% url 'post_list' %}" class="btn btn-primary btn-sm">Read more</a>
-            </div>
-        </div>
-    </div>
+        <div class="card-body-custom">
 
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height:150px;">Tech</div>
-            <div class="card-body">
-                <h4 class="card-title">Built With <span class="badge text-bg-secondary fs-6">tech</span></h4>
-                <p class="text-muted small">By DjangoBlog · {% now "M d, Y" %}</p>
-                <p>Django, Python, and Bootstrap 5.</p>
-                <a href="{% url 'contact' %}" class="btn btn-primary btn-sm">Contact us</a>
+            <h3>Our Mission</h3>
+
+            <p class="excerpt">
+                We want everyone to enjoy blogging in a simple, beautiful, and enjoyable way using Django.
+            </p>
+
+            <div class="meta">
+                <span>
+                    <i class="fa-regular fa-calendar"></i>
+                    {% now "M d, Y" %}
+                </span>
+
+                <a href="{% url 'post_list' %}" class="arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
             </div>
+
         </div>
-    </div>
+
+    </article>
+
+    <!-- Features -->
+    <article class="post-card">
+
+        <div class="card-img">
+            <img src="{% static 'blog/css/img/features.jpg' %}" alt="Features">
+            <span class="badge-cat">Features</span>
+        </div>
+
+        <div class="card-body-custom">
+
+            <h3>What You Can Do</h3>
+
+            <p class="excerpt">
+                Create posts, upload cover images, organize content with categories, and edit your stories anytime.
+            </p>
+
+            <div class="meta">
+                <span>
+                    <i class="fa-solid fa-book-open"></i>
+                    Blogging
+                </span>
+
+                <a href="{% url 'post_list' %}" class="arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+        </div>
+
+    </article>
+
+    <!-- Technology -->
+    <article class="post-card">
+
+        <div class="card-img">
+            <img src="{% static 'blog/css/img/tech.jpg' %}" alt="Technology">
+            <span class="badge-cat">Technology</span>
+        </div>
+
+        <div class="card-body-custom">
+
+            <h3>Built With</h3>
+
+            <p class="excerpt">
+                Developed using Python, Django, Bootstrap 5, HTML, CSS, JavaScript, and PostgreSQL.
+            </p>
+
+            <div class="meta">
+                <span>
+                    <i class="fa-solid fa-code"></i>
+                    Django
+                </span>
+
+                <a href="{% url 'contact' %}" class="arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+        </div>
+
+    </article>
 
 </div>
 

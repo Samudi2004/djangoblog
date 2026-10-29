@@ -1,50 +1,140 @@
 {% extends "blog/base.html" %}
+{% load static %}
 
 {% block title %}Contact | DjangoBlog{% endblock %}
 
+{% block hero %}
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <i class="fa-solid fa-envelope hero-flower"></i>
+
+        <h1 id="heroTitle">Contact Us</h1>
+
+        <p id="heroSubtitle">
+            We'd love to hear from you. Feel free to reach out anytime.
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
 {% block content %}
 
-<h1 class="fw-bold mb-2">Contact Us</h1>
-<span class="badge text-bg-secondary mb-2">Contact</span>
-<p class="text-muted mb-4">{{ content }}</p>
+<h2 class="section-title">Get In Touch</h2>
 
-<div class="row g-4 mb-5">
+<p class="section-sub">
+    Have questions, suggestions, or feedback? We're always happy to connect with you.
+</p>
 
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height:150px;">Email</div>
-            <div class="card-body">
-                <h4 class="card-title">Email <span class="badge text-bg-secondary fs-6">24h</span></h4>
-                <p class="text-muted small">By DjangoBlog · {% now "M d, Y" %}</p>
-                <p>samudipabasara2@gmail.com</p>
-                <a href="mailto:samudipabasara2@gmail.com" class="btn btn-primary btn-sm">Send email</a>
-            </div>
+<div class="cards">
+
+    <!-- Email -->
+    <article class="post-card">
+
+        <div class="card-img">
+            <img src="{% static 'blog/css/img/email.jpg' %}" alt="Email">
+            <span class="badge-cat">Email</span>
         </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height:150px;">Location</div>
-            <div class="card-body">
-                <h4 class="card-title">Location <span class="badge text-bg-secondary fs-6">Japan</span></h4>
-                <p class="text-muted small">By DjangoBlog · {% now "M d, Y" %}</p>
-                <p>Niigata, Japan</p>
-                <a href="{% url 'about' %}" class="btn btn-primary btn-sm">About us</a>
-            </div>
-        </div>
-    </div>
+        <div class="card-body-custom">
 
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height:150px;">Hours</div>
-            <div class="card-body">
-                <h4 class="card-title">Open Hours <span class="badge text-bg-secondary fs-6">open</span></h4>
-                <p class="text-muted small">By DjangoBlog · {% now "M d, Y" %}</p>
-                <p>Mon - Fri, 9:00 -17:00</p>
-                <a href="{% url 'post_list' %}" class="btn btn-primary btn-sm">Read posts</a>
+            <h3>Email Us</h3>
+
+            <p class="excerpt">
+                samudipabasara2@gmail.com
+            </p>
+
+            <div class="meta">
+
+                <span>
+                    <i class="fa-solid fa-envelope"></i>
+                    24/7 Support
+                </span>
+
+                <a href="mailto:samudipabasara2@gmail.com"
+                   class="arrow">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                </a>
+
             </div>
+
         </div>
-    </div>
+
+    </article>
+
+    <!-- Location -->
+    <article class="post-card">
+
+        <div class="card-img">
+            <img src="{% static 'blog/css/img/location.jpg' %}" alt="Location">
+            <span class="badge-cat">Location</span>
+        </div>
+
+        <div class="card-body-custom">
+
+            <h3>Our Location</h3>
+
+            <p class="excerpt">
+                Niigata, Japan
+            </p>
+
+            <div class="meta">
+
+                <span>
+                    <i class="fa-solid fa-location-dot"></i>
+                    Japan
+                </span>
+
+                <a href="{% url 'about' %}" class="arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </article>
+
+    <!-- Hours -->
+    <article class="post-card">
+
+        <div class="card-img">
+            <img src="{% static 'blog/css/img/hours.jpg' %}" alt="Hours">
+            <span class="badge-cat">Hours</span>
+        </div>
+
+        <div class="card-body-custom">
+
+            <h3>Open Hours</h3>
+
+            <p class="excerpt">
+                Monday - Friday<br>
+                9:00 AM - 5:00 PM
+            </p>
+
+            <div class="meta">
+
+                <span>
+                    <i class="fa-regular fa-clock"></i>
+                    Open
+                </span>
+
+                <a href="{% url 'post_list' %}" class="arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </article>
 
 </div>
 

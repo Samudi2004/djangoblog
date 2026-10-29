@@ -1,55 +1,100 @@
 {% extends "blog/base.html" %}
+{% load static %}
 
-{% block title %}Home | DjangoBlog{% endblock %}
+{% block title %}
+Japan & Sri Lanka | DjangoBlog
+{% endblock %}
+
+{% block body_class %}has-hero{% endblock %}
+
+{% block hero %}
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <i class="fa-solid fa-spa hero-flower"></i>
+
+        <h1 id="heroTitle">
+            Japan &amp; Sri Lanka
+        </h1>
+
+        <p id="heroSubtitle">
+            Stories, travel and life from two beautiful islands.
+        </p>
+
+        <div class="chips">
+
+            {% for category in categories %}
+
+                <a href="?category={{ category.name }}" class="chip">
+                    {{ category.name }}
+                </a>
+
+            {% empty %}
+
+                <span class="chip">
+                    No Categories
+                </span>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
 
 {% block content %}
 
-<h1 class="fw-bold mb-2">Welcome to DjangoBlog</h1>
-<span class="badge text-bg-secondary mb-2">Home</span>
-<p class="text-muted mb-4">{{ title }}</p>
+<section class="latest-posts">
 
-<div class="row g-4 mb-5">
+    <h2 class="section-title">
+        Latest Posts
+    </h2>
 
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height:150px;">Write</div>
-            <div class="card-body">
-                <h4 class="card-title">Write <span class="badge text-bg-secondary fs-6">new</span></h4>
-                <p class="text-muted small">By DjangoBlog · {% now "M d, Y" %}</p>
-                <p>Create and publish your own posts in minutes.</p>
+    <p class="section-sub">
+        Explore our latest stories, travel guides and experiences.
+    </p>
+
+    <div class="cards">
+
+        {% for post in page_obj %}
+
+            {% include "blog/partials/_post_card.html" %}
+
+        {% empty %}
+
+            <div class="text-center py-5">
+
+                <h4>No posts yet.</h4>
+
+                <p>Create your first post!</p>
+
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'post_create' %}" class="btn btn-primary btn-sm">New Post</a>
+
+                    <a href="{% url 'post_create' %}" class="btn btn-primary">
+                        Create Post
+                    </a>
+
                 {% else %}
-                    <a href="{% url 'register' %}" class="btn btn-primary btn-sm">Join Now</a>
+
+                    <a href="{% url 'register' %}" class="btn btn-primary">
+                        Join Now
+                    </a>
+
                 {% endif %}
+
             </div>
-        </div>
+
+        {% endfor %}
+
     </div>
 
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height:150px;">Organize</div>
-            <div class="card-body">
-                <h4 class="card-title">Organize <span class="badge text-bg-secondary fs-6">tips</span></h4>
-                <p class="text-muted small">By DjangoBlog · {% now "M d, Y" %}</p>
-                <p>Sort your stories using categories.</p>
-                <a href="{% url 'post_list' %}" class="btn btn-primary btn-sm">Browse</a>
-            </div>
-        </div>
-    </div>
+</section>
 
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height:150px;">Share</div>
-            <div class="card-body">
-                <h4 class="card-title">Share <span class="badge text-bg-secondary fs-6">open</span></h4>
-                <p class="text-muted small">By DjangoBlog · {% now "M d, Y" %}</p>
-                <p>Let everyone read what you have to say.</p>
-                <a href="{% url 'post_list' %}" class="btn btn-primary btn-sm">Read more</a>
-            </div>
-        </div>
-    </div>
-
-</div>
+{% include "blog/partials/_pagination.html" %}
 
 {% endblock %}

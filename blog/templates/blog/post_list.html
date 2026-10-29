@@ -2,61 +2,55 @@
 {% load static %}
 
 {% block title %}
-Japan &amp; Sri Lanka | DjangoBlog
+Japan & Sri Lanka | DjangoBlog
+{% endblock %}
+
+{% block body_class %}has-hero{% endblock %}
+
+{% block hero %}
+<section class="hero" id="heroBanner">
+
+    <i class="fa-solid fa-spa hero-flower"></i>
+
+    <h1 id="heroTitle">Japan &amp; Sri Lanka</h1>
+
+    <p id="heroSubtitle">
+        Stories, travel and life from two beautiful islands.
+    </p>
+
+    <div class="chips">
+        {% for category in categories %}
+            <a href="?category={{ category.name }}" class="chip">
+                {{ category.name }}
+            </a>
+        {% endfor %}
+    </div>
+
+</section>
 {% endblock %}
 
 {% block content %}
 
-<section class="hero-banner text-center text-white mb-5" id="heroBanner">
+<h2 class="section-title">Latest Posts</h2>
+<p class="section-sub">Explore our latest stories, tips and adventures.</p>
 
-    <div class="hero-overlay"></div>
+<div class="cards">
 
-    <div class="hero-content">
+    {% for post in page_obj %}
 
-        <h1 id="heroTitle" class="display-3 fw-bold">
-            Japan &amp; Sri Lanka
-        </h1>
+        {% include "blog/partials/_post_card.html" %}
 
-        <p id="heroSubtitle" class="lead mb-4">
-            Stories, travel and life from two beautiful islands.
-        </p>
+    {% empty %}
 
-        <div>
-            {% for category in categories %}
-                <a href="?category={{ category.name }}"
-                   class="btn btn-outline-light btn-sm m-1">
-                    {{ category.name }}
-                </a>
-            {% endfor %}
+        <div class="text-center text-muted py-5" style="grid-column: 1 / -1;">
+            No posts yet —
+            <a href="{% url 'post_create' %}">Write the first post!</a>
         </div>
 
-    </div>
-
-</section>
-
-<div class="container">
-
-    <div class="row">
-
-        {% for post in page_obj %}
-            {% include "blog/partials/_post_card.html" %}
-        {% empty %}
-            <div class="col-12">
-                <p class="text-center text-muted py-5">
-                    No posts yet —
-                    <a href="{% url 'post_create' %}">
-                        Write the first post!
-                    </a>
-                </p>
-            </div>
-        {% endfor %}
-
-    </div>
-
-    {% include "blog/partials/_pagination.html" %}
+    {% endfor %}
 
 </div>
 
-<script src="{% static 'blog/js/script.js' %}"></script>
+{% include "blog/partials/_pagination.html" %}
 
 {% endblock %}

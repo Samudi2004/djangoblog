@@ -3,11 +3,19 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    # Home
-    path("", views.home, name="home"),
+    # Home (Show Post List as Home)
+    path(
+        "",
+        views.PostListView.as_view(),
+        name="home",
+    ),
 
     # Register
-    path("register/", views.RegisterView.as_view(), name="register"),
+    path(
+        "register/",
+        views.RegisterView.as_view(),
+        name="register",
+    ),
 
     # Login
     path(
@@ -26,12 +34,20 @@ urlpatterns = [
     ),
 
     # About
-    path("about/", views.about, name="about"),
+    path(
+        "about/",
+        views.about,
+        name="about",
+    ),
 
     # Contact
-    path("contact/", views.contact, name="contact"),
+    path(
+        "contact/",
+        views.contact,
+        name="contact",
+    ),
 
-    # Blog post list
+    # Blog Posts
     path(
         "posts/",
         views.PostListView.as_view(),
@@ -45,28 +61,28 @@ urlpatterns = [
         name="my_posts",
     ),
 
-    # Create post
+    # Create Post
     path(
         "posts/new/",
         views.PostCreateView.as_view(),
         name="post_create",
     ),
 
-    # Edit post
+    # Edit Post
     path(
         "posts/<slug:slug>/edit/",
         views.PostUpdateView.as_view(),
         name="post_edit",
     ),
 
-    # Delete post
+    # Delete Post
     path(
         "posts/<slug:slug>/delete/",
         views.PostDeleteView.as_view(),
         name="post_delete",
     ),
 
-    # Post detail
+    # Post Detail
     path(
         "posts/<slug:slug>/",
         views.PostDetailView.as_view(),
