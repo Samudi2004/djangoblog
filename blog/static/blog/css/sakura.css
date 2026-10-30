@@ -1099,3 +1099,29 @@ footer p{
 /* =====================================
    END OF FILE
 ===================================== */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-petals {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hero-petal {
+    position: absolute;
+    top: -30px;
+    background: #ffc0d3;
+    border-radius: 150% 0 150% 0;
+    animation: hero-fall linear forwards;
+}
+
+@keyframes hero-fall {
+    to {
+        transform: translateY(var(--fall, 600px)) translateX(60px) rotate(360deg);
+    }
+}

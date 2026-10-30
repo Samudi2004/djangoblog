@@ -1,34 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const petalsContainer = document.getElementById("petals");
+    const hero = document.querySelector(".hero");
 
-    if (!petalsContainer) {
-        console.warn("Petals container not found.");
-        return;
+    if (!hero) {
+        return; // pages without a hero get no petals
     }
+
+    // Container lives inside the hero, so petals are clipped to the banner
+    const petalsContainer = document.createElement("div");
+    petalsContainer.className = "hero-petals";
+    hero.prepend(petalsContainer);
 
     function createPetal() {
 
         const petal = document.createElement("span");
-        petal.classList.add("petal");
+        petal.classList.add("hero-petal");
 
-        // Random position
-        const left = Math.random() * window.innerWidth;
-
-        // Random size (14px - 32px)
-        const size = Math.random() * 18 + 14;
-
-        // Random animation duration (8s - 14s)
-        const duration = Math.random() * 6 + 8;
-
-        // Random delay
+        const left = Math.random() * hero.offsetWidth;
+        const size = Math.random() * 12 + 12;          // 12px - 24px
+        const duration = Math.random() * 6 + 8;        // 8s - 14s
         const delay = Math.random() * 2;
-
-        // Random opacity
-        const opacity = Math.random() * 0.5 + 0.5;
-
-        // Random rotation
-        const rotate = Math.random() * 360;
+        const opacity = Math.random() * 0.4 + 0.5;
 
         petal.style.left = `${left}px`;
         petal.style.width = `${size}px`;
@@ -36,22 +28,21 @@ document.addEventListener("DOMContentLoaded", () => {
         petal.style.opacity = opacity;
         petal.style.animationDuration = `${duration}s`;
         petal.style.animationDelay = `${delay}s`;
-        petal.style.transform = `rotate(${rotate}deg)`;
+        petal.style.setProperty("--fall", `${hero.offsetHeight + 40}px`);
 
         petalsContainer.appendChild(petal);
 
         petal.addEventListener("animationend", () => {
             petal.remove();
         });
-
     }
 
-    // Initial petals
-    for (let i = 0; i < 30; i++) {
-        setTimeout(createPetal, i * 180);
+    // Initial petals (was 30)
+    for (let i = 0; i < 8; i++) {
+        setTimeout(createPetal, i * 400);
     }
 
-    // Keep creating petals
-    setInterval(createPetal, 350);
+    // Keep creating petals (was every 350ms)
+    setInterval(createPetal, 1200);
 
 });

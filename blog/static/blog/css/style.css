@@ -51,7 +51,7 @@ nav.site-navbar{ position:absolute; top:20px; left:50%; transform:translateX(-50
 .section-title{ font-family:'Caveat',cursive; font-size:2.6rem; font-weight:700; color:var(--dark-pink); text-align:center; margin-top:30px; }
 .section-sub{ text-align:center; color:#7a6070; margin-bottom:30px; }
 
-/* POSTS GRID: 3 එක පේළියේ */
+/* POSTS GRID: 3 */
 .cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:30px; margin-bottom:40px; }
 .post-card{ background:#fff; border-radius:24px; overflow:hidden; box-shadow:0 10px 30px rgba(232,74,127,.12); transition:transform .25s; }
 .post-card:hover{ transform:translateY(-6px); }
