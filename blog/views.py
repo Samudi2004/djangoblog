@@ -29,7 +29,7 @@ def home(request):
             category__name__iexact=category
         )
 
-    paginator = Paginator(posts, 6)
+    paginator = Paginator(posts, 9)
 
     page_number = request.GET.get("page")
 

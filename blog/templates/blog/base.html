@@ -270,6 +270,115 @@
 {% block extra_js %}
 {% endblock %}
 
+
+<style id="colourCycleStyle">
+nav.site-navbar{ transition:background .8s, box-shadow .8s; }
+.site-navbar .brand, .site-navbar .brand i,
+.site-navbar .nav-links a, .site-navbar .btn-outline-pink,
+.site-navbar .hi i, .chip{ transition:color .8s, border-color .8s, background .8s; }
+</style>
+<script>
+/* colourCycle */
+(function () {
+  var colours = ["#e84a7f", "#8e44ad", "#2980b9", "#27ae60", "#e67e22"];
+  var i = 0;
+  function apply() {
+    var c = colours[i % colours.length];
+    var nav = document.querySelector("nav.site-navbar");
+    if (nav) {
+      nav.style.setProperty("background", c + "33", "important");
+      nav.style.setProperty("box-shadow", "0 8px 30px " + c + "66", "important");
+      nav.querySelectorAll(".brand, .brand i, .nav-links a, .hi i").forEach(function (e) {
+        e.style.setProperty("color", c, "important");
+      });
+      nav.querySelectorAll(".btn-outline-pink").forEach(function (e) {
+        e.style.setProperty("color", c, "important");
+        e.style.setProperty("border-color", c, "important");
+      });
+    }
+    document.querySelectorAll(".chip").forEach(function (e) {
+      e.style.setProperty("color", c, "important");
+      e.style.setProperty("background", "rgba(255,255,255,.92)", "important");
+    });
+    document.querySelectorAll(".section-title, .post-card .badge-cat, .arrow").forEach(function (e) {
+      if (e.classList.contains("section-title")) e.style.setProperty("color", c, "important");
+      else e.style.setProperty("background", c, "important");
+    });
+    i++;
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    apply();
+    setInterval(apply, 3000);
+  });
+})();
+</script>
+
+<style id="liveBubblesStyle">
+#bubbles{
+  position:fixed; inset:0; overflow:hidden;
+  pointer-events:none; z-index:5;
+  animation:bubbleHue 14s linear infinite;
+}
+@keyframes bubbleHue{
+  from{ filter:hue-rotate(0deg); }
+  to{ filter:hue-rotate(360deg); }
+}
+.bubble{
+  position:absolute; bottom:-120px; border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,
+    rgba(255,255,255,.95), rgba(232,74,127,.35) 55%, rgba(232,74,127,.15));
+  border:1px solid rgba(255,255,255,.8);
+  box-shadow:inset 0 0 12px rgba(255,255,255,.7), 0 0 14px rgba(232,74,127,.25);
+  opacity:.65;
+  animation:bubbleRise linear forwards;
+}
+@keyframes bubbleRise{
+  0%  { transform:translate(0,0) scale(.6); opacity:0; }
+  10% { opacity:.65; }
+  50% { transform:translate(40px,-55vh) scale(1); }
+  100%{ transform:translate(-30px,-125vh) scale(1.1); opacity:0; }
+}
+</style>
+<div id="bubbles"></div>
+<script>
+/* liveBubbles */
+(function () {
+  var box = document.getElementById("bubbles");
+  function make() {
+    if (!box || box.children.length > 40) return;
+    var b = document.createElement("span");
+    b.className = "bubble";
+    var size = 18 + Math.random() * 70;
+    b.style.width = size + "px";
+    b.style.height = size + "px";
+    b.style.left = Math.random() * 100 + "vw";
+    b.style.animationDuration = (8 + Math.random() * 9) + "s";
+    b.addEventListener("animationend", function () { b.remove(); });
+    box.appendChild(b);
+  }
+  for (var n = 0; n < 12; n++) setTimeout(make, n * 250);
+  setInterval(make, 450);
+})();
+</script>
+
+<script>
+/* bubbleClip: hide bubbles over the hero section */
+(function () {
+  var box = document.getElementById("bubbles");
+  var hero = document.querySelector(".hero");
+  function clip() {
+    if (!box) return;
+    if (!hero) { box.style.clipPath = "none"; return; }
+    var bottom = Math.max(0, Math.round(hero.getBoundingClientRect().bottom));
+    box.style.clipPath = "inset(" + bottom + "px 0 0 0)";
+  }
+  window.addEventListener("scroll", clip, { passive: true });
+  window.addEventListener("resize", clip);
+  document.addEventListener("DOMContentLoaded", clip);
+  clip();
+  setInterval(clip, 200);
+})();
+</script>
 </body>
 
 </html>

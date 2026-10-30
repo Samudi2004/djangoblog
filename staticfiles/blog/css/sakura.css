@@ -1,0 +1,1127 @@
+/* =====================================
+   DJANGOBLOG - SAKURA THEME
+   PART 1
+===================================== */
+
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* =====================================
+   ROOT COLORS
+===================================== */
+
+:root{
+
+    --pink:#e84a7f;
+    --dark-pink:#b41d63;
+    --light-pink:#fff0f6;
+    --bg:#fff7fb;
+    --text:#40323f;
+
+    --shadow:0 12px 35px rgba(232,74,127,.18);
+
+}
+
+/* =====================================
+   RESET
+===================================== */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    font-family:"Poppins",sans-serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    overflow-x:hidden;
+
+    line-height:1.6;
+
+}
+
+img{
+
+    max-width:100%;
+    display:block;
+
+}
+
+a{
+
+    text-decoration:none;
+
+}
+
+.page-container{
+
+    position:relative;
+    z-index:2;
+
+}
+
+/* =====================================
+   SAKURA PETALS
+===================================== */
+
+#petals{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+    z-index:9999;
+
+}
+
+.petal{
+
+    position:absolute;
+
+    top:-60px;
+
+    width:26px;
+    height:26px;
+
+    background:
+    url("../img/sakura.png")
+    center center
+    no-repeat;
+
+    background-size:contain;
+
+    opacity:.9;
+
+    animation:fall linear infinite;
+
+}
+
+@keyframes fall{
+
+    0%{
+
+        transform:
+        translateY(-60px)
+        translateX(0)
+        rotate(0deg);
+
+        opacity:0;
+
+    }
+
+    10%{
+
+        opacity:1;
+
+    }
+
+    50%{
+
+        transform:
+        translateY(55vh)
+        translateX(40px)
+        rotate(180deg);
+
+    }
+
+    100%{
+
+        transform:
+        translateY(110vh)
+        translateX(-30px)
+        rotate(360deg);
+
+        opacity:0;
+
+    }
+
+}
+
+/* =====================================
+   NAVBAR
+===================================== */
+
+.site-navbar{
+
+    position:absolute;
+
+    top:18px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:min(96%,1450px);
+
+    background:rgba(255,255,255,.90);
+
+    backdrop-filter:blur(12px);
+
+    border-radius:50px;
+
+    padding:10px 22px;
+
+    box-shadow:var(--shadow);
+
+    z-index:100;
+
+}
+
+.brand{
+
+    font-family:"Caveat",cursive;
+
+    font-size:2rem !important;
+
+    color:var(--dark-pink)!important;
+
+}
+
+.brand i{
+
+    color:var(--pink);
+
+    margin-right:6px;
+
+}
+
+.nav-links a{
+
+    color:var(--dark-pink)!important;
+
+    padding:10px 18px;
+
+    border-radius:30px;
+
+    transition:.3s;
+
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+
+    background:#ffe2ee;
+
+}
+
+.btn-outline-pink{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    border:2px solid #f6bdd4;
+
+    background:#fff;
+
+    color:var(--dark-pink)!important;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    transition:.3s;
+
+}
+
+.btn-outline-pink:hover{
+
+    background:var(--pink);
+
+    border-color:var(--pink);
+
+    color:#fff!important;
+
+}
+
+.hi{
+
+    color:#7b596d;
+
+    font-size:.95rem;
+
+}
+/* =====================================
+   PART 2
+   HERO SECTION
+===================================== */
+
+.hero{
+
+    position:relative;
+
+    min-height:650px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    overflow:hidden;
+
+    padding:150px 20px 100px;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.15),
+            rgba(0,0,0,.20)
+        ),
+        url("../img/hero.jpg")
+        center center/cover
+        no-repeat;
+
+}
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        radial-gradient(
+            circle at top left,
+            rgba(255,210,225,.35),
+            transparent 40%
+        ),
+
+        radial-gradient(
+            circle at bottom right,
+            rgba(255,225,235,.35),
+            transparent 45%
+        );
+
+}
+
+.hero>*{
+
+    position:relative;
+
+    z-index:5;
+
+}
+
+/* =====================================
+   HERO ICON
+===================================== */
+
+.hero-flower{
+
+    display:inline-block;
+
+    font-size:2rem;
+
+    color:#ffd9e8;
+
+    margin-bottom:18px;
+
+}
+
+/* =====================================
+   HERO TITLE
+===================================== */
+
+#heroTitle{
+
+    font-family:"Caveat",cursive;
+
+    font-size:5.8rem;
+
+    font-weight:700;
+
+    color:#ffffff;
+
+    line-height:1;
+
+    margin-bottom:18px;
+
+    text-shadow:
+        0 6px 18px rgba(0,0,0,.35);
+
+}
+
+/* =====================================
+   HERO SUBTITLE
+===================================== */
+
+#heroSubtitle{
+
+    max-width:760px;
+
+    font-size:1.25rem;
+
+    color:#ffffff;
+
+    margin-bottom:35px;
+
+    text-shadow:
+        0 3px 12px rgba(0,0,0,.35);
+
+}
+
+/* =====================================
+   CATEGORY CHIPS
+===================================== */
+
+.chips{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    max-width:900px;
+
+}
+
+.chip{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:12px 28px;
+
+    border-radius:50px;
+
+    background:rgba(255,255,255,.92);
+
+    color:var(--dark-pink)!important;
+
+    font-weight:600;
+
+    box-shadow:0 8px 20px rgba(232,74,127,.15);
+
+    transition:.35s;
+
+}
+
+.chip:hover{
+
+    background:var(--pink);
+
+    color:#fff!important;
+
+    transform:translateY(-5px);
+
+}
+/* =====================================
+   PART 3
+   LATEST POSTS & POST CARDS
+===================================== */
+
+/* ===========================
+   SECTION TITLE
+=========================== */
+
+.section-title{
+
+    text-align:center;
+
+    margin-top:70px;
+
+    font-family:"Caveat",cursive;
+
+    font-size:3rem;
+
+    color:var(--dark-pink);
+
+}
+
+.section-sub{
+
+    text-align:center;
+
+    color:#7b6474;
+
+    margin-bottom:45px;
+
+    font-size:1.05rem;
+
+}
+
+/* ===========================
+   POSTS GRID
+=========================== */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:30px;
+
+    margin-bottom:70px;
+
+}
+
+/* ===========================
+   POST CARD
+=========================== */
+
+.post-card{
+
+    background:#fff;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    box-shadow:0 12px 35px rgba(232,74,127,.15);
+
+    transition:.35s;
+
+}
+
+.post-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 20px 45px rgba(232,74,127,.22);
+
+}
+
+/* ===========================
+   IMAGE
+=========================== */
+
+.card-img{
+
+    position:relative;
+
+    height:250px;
+
+    overflow:hidden;
+
+}
+
+.card-img img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.6s;
+
+}
+
+.post-card:hover .card-img img{
+
+    transform:scale(1.08);
+
+}
+
+/* ===========================
+   CATEGORY BADGE
+=========================== */
+
+.badge-cat{
+
+    position:absolute;
+
+    top:18px;
+
+    left:18px;
+
+    background:var(--pink);
+
+    color:#fff;
+
+    padding:7px 18px;
+
+    border-radius:30px;
+
+    font-size:.85rem;
+
+    font-weight:600;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.18);
+
+}
+
+/* ===========================
+   NO IMAGE
+=========================== */
+
+.no-image{
+
+    width:100%;
+
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    background:linear-gradient(135deg,#fff0f6,#ffe5ef);
+
+    color:var(--dark-pink);
+
+    font-weight:600;
+
+    font-size:1rem;
+
+}
+/* =====================================
+   PART 4
+   CARD BODY
+===================================== */
+
+/* ===========================
+   CARD BODY
+=========================== */
+
+.card-body-custom{
+
+    padding:24px;
+
+}
+
+.card-body-custom h3{
+
+    font-family:"Caveat",cursive;
+
+    font-size:2rem;
+
+    color:#422d3e;
+
+    margin-bottom:12px;
+
+    line-height:1.2;
+
+}
+
+.excerpt{
+
+    color:#7f6c78;
+
+    line-height:1.7;
+
+    font-size:.95rem;
+
+    margin-bottom:22px;
+
+}
+
+/* ===========================
+   META INFO
+=========================== */
+
+.meta{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    font-size:.88rem;
+
+    color:#7b6474;
+
+}
+
+.meta span{
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.meta i{
+
+    color:var(--pink);
+
+    margin-right:6px;
+
+}
+
+/* ===========================
+   READ MORE BUTTON
+=========================== */
+
+.arrow{
+
+    margin-left:auto;
+
+    width:42px;
+
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+        135deg,
+        var(--pink),
+        var(--dark-pink)
+    );
+
+    color:#fff!important;
+
+    transition:.35s;
+
+    box-shadow:0 8px 20px rgba(232,74,127,.25);
+
+}
+
+.arrow:hover{
+
+    transform:translateX(4px) rotate(10deg);
+
+    box-shadow:0 14px 28px rgba(232,74,127,.35);
+
+}
+
+/* ===========================
+   EDIT & DELETE
+=========================== */
+
+.card-actions{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:22px;
+
+    padding-top:18px;
+
+    border-top:1px solid #ffe5ef;
+
+}
+
+.act-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    padding:8px 16px;
+
+    border-radius:30px;
+
+    border:2px solid #ffd2e4;
+
+    color:var(--dark-pink)!important;
+
+    background:#fff;
+
+    transition:.3s;
+
+    font-size:.9rem;
+
+    font-weight:500;
+
+}
+
+.act-btn:hover{
+
+    background:var(--pink);
+
+    border-color:var(--pink);
+
+    color:#fff!important;
+
+}
+
+.act-danger{
+
+    color:#d63031!important;
+
+    border-color:#ffc4c4;
+
+}
+
+.act-danger:hover{
+
+    background:#d63031;
+
+    border-color:#d63031;
+
+    color:#fff!important;
+
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.btn-primary{
+
+    background:linear-gradient(
+        135deg,
+        var(--pink),
+        var(--dark-pink)
+    );
+
+    border:none;
+
+    border-radius:30px;
+
+    padding:10px 24px;
+
+}
+
+.btn-primary:hover{
+
+    filter:brightness(.95);
+
+}
+
+.btn-secondary{
+
+    border-radius:30px;
+
+}
+/* =====================================
+   PART 5
+   PAGINATION • FORMS • FOOTER
+   RESPONSIVE
+===================================== */
+
+/* ===========================
+   PAGINATION
+=========================== */
+
+.pagination{
+
+    justify-content:center;
+
+    margin:60px 0;
+
+}
+
+.pagination .page-link{
+
+    border:none;
+
+    margin:0 5px;
+
+    border-radius:14px;
+
+    color:var(--dark-pink);
+
+    background:#fff;
+
+    box-shadow:0 6px 16px rgba(232,74,127,.12);
+
+    transition:.3s;
+
+}
+
+.pagination .page-link:hover{
+
+    background:var(--pink);
+
+    color:#fff;
+
+}
+
+.pagination .active .page-link{
+
+    background:var(--dark-pink);
+
+    color:#fff;
+
+}
+
+/* ===========================
+   FORMS
+=========================== */
+
+.form-control,
+.form-select{
+
+    border:2px solid #ffd8e8;
+
+    border-radius:18px;
+
+    padding:12px 15px;
+
+    box-shadow:none;
+
+    transition:.3s;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    border-color:var(--pink);
+
+    box-shadow:0 0 0 .2rem rgba(232,74,127,.18);
+
+}
+
+/* ===========================
+   ALERTS
+=========================== */
+
+.alert{
+
+    border:none;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 25px rgba(232,74,127,.12);
+
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+
+footer{
+
+    margin-top:80px;
+
+    background:linear-gradient(
+        135deg,
+        #fff1f7,
+        #ffe5ef
+    );
+
+    border-top:1px solid #ffd5e6;
+
+    color:var(--dark-pink)!important;
+
+    padding:35px 20px;
+
+}
+
+footer p{
+
+    margin:0;
+
+    font-size:.95rem;
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width:992px){
+
+    .hero{
+
+        min-height:560px;
+
+        padding:140px 20px 90px;
+
+    }
+
+    #heroTitle{
+
+        font-size:4.3rem;
+
+    }
+
+    #heroSubtitle{
+
+        font-size:1.1rem;
+
+    }
+
+    .cards{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .site-navbar{
+
+        border-radius:25px;
+
+    }
+
+    .hero{
+
+        min-height:500px;
+
+        padding:130px 20px 80px;
+
+    }
+
+    #heroTitle{
+
+        font-size:3.3rem;
+
+    }
+
+    #heroSubtitle{
+
+        font-size:1rem;
+
+    }
+
+    .chips{
+
+        gap:10px;
+
+    }
+
+    .chip{
+
+        padding:10px 18px;
+
+        font-size:.9rem;
+
+    }
+
+    .cards{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .card-img{
+
+        height:220px;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    #heroTitle{
+
+        font-size:2.6rem;
+
+    }
+
+    #heroSubtitle{
+
+        font-size:.95rem;
+
+    }
+
+    .hero-flower{
+
+        font-size:1.5rem;
+
+    }
+
+    .petal{
+
+        width:18px;
+
+        height:18px;
+
+    }
+
+}
+.card-footer-custom{
+    display:flex;
+    justify-content:flex-end;
+    margin-top:20px;
+}
+
+.read-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 20px;
+    background:linear-gradient(135deg,#ff4f93,#d81b60);
+    color:#fff !important;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+.read-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 24px rgba(216,27,96,.25);
+}
+
+.read-btn i{
+    transition:.3s;
+}
+
+.read-btn:hover i{
+    transform:translateX(5px);
+}
+/* =====================================
+   END OF FILE
+===================================== */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-petals {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hero-petal {
+    position: absolute;
+    top: -30px;
+    background: #ffc0d3;
+    border-radius: 150% 0 150% 0;
+    animation: hero-fall linear forwards;
+}
+
+@keyframes hero-fall {
+    to {
+        transform: translateY(var(--fall, 600px)) translateX(60px) rotate(360deg);
+    }
+}

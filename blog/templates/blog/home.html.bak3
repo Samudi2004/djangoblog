@@ -1,0 +1,136 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}
+Japan & Sri Lanka | DjangoBlog
+{% endblock %}
+
+{% block body_class %}has-hero{% endblock %}
+
+{% block hero %}
+
+
+
+<section class="hero">
+
+    <div class="slide active" style="background-image:url('{% static "blog/img/hero1.png" %}')"></div>
+    <div class="slide" style="background-image:url('{% static "blog/img/hero2.png" %}')"></div>
+    <div class="slide" style="background-image:url('{% static "blog/img/hero3.png" %}')"></div>
+    <div class="slide" style="background-image:url('{% static "blog/img/hero4.png" %}')"></div>
+
+
+<div class="hero-content">
+
+        <i class="fa-solid fa-spa hero-flower"></i>
+
+        <h1 id="heroTitle">
+            Japan &amp; Sri Lanka
+        </h1>
+
+        <p id="heroSubtitle">
+            Stories, travel and life from two beautiful islands.
+        </p>
+
+        <div class="chips">
+
+            {% for category in categories %}
+
+                <a href="?category={{ category.name }}" class="chip">
+                    {{ category.name }}
+                </a>
+
+            {% empty %}
+
+                <span class="chip">
+                    No Categories
+                </span>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+{% block content %}
+
+<section class="latest-posts">
+
+    <h2 class="section-title">
+        Latest Posts
+    </h2>
+
+    <p class="section-sub">
+        Explore our latest stories, travel guides and experiences.
+    </p>
+
+    <div class="cards">
+
+        {% for post in page_obj %}
+
+            {% include "blog/partials/_post_card.html" %}
+
+        {% empty %}
+
+            <div class="text-center py-5">
+
+                <h4>No posts yet.</h4>
+
+                <p>Create your first post!</p>
+
+                {% if request.user.is_authenticated %}
+
+                    <a href="{% url 'post_create' %}" class="btn btn-primary">
+                        Create Post
+                    </a>
+
+                {% else %}
+
+                    <a href="{% url 'register' %}" class="btn btn-primary">
+                        Join Now
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% include "blog/partials/_pagination.html" %}
+
+<script>
+/* heroSlideshow */
+document.addEventListener("DOMContentLoaded", function () {
+  const slides = document.querySelectorAll(".hero .slide");
+  if (slides.length < 2) return;
+  let i = 0;
+  setInterval(function () {
+    slides[i].classList.remove("active");
+    i = (i + 1) % slides.length;
+    slides[i].classList.add("active");
+  }, 5000);
+});
+</script>
+
+<script>
+/* cardSlider */
+document.addEventListener("DOMContentLoaded", function () {
+  const box = document.querySelector(".cards");
+  if (!box || box.children.length <= 3) return;
+  setInterval(function () {
+    const step = box.children[0].getBoundingClientRect().width + 30;
+    const atEnd = box.scrollLeft + box.clientWidth >= box.scrollWidth - 5;
+    if (atEnd) { box.scrollTo({ left: 0, behavior: "smooth" }); }
+    else { box.scrollBy({ left: step, behavior: "smooth" }); }
+  }, 3000);
+});
+</script>
+
+{% endblock %}

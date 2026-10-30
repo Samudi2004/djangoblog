@@ -1,0 +1,365 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Sakura & Ceylon 🌸{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Sakura Theme -->
+    <link rel="stylesheet"
+          href="{% static 'blog/css/sakura.css' %}?v=2">
+
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+
+<!-- ========================================= -->
+<!-- Navbar -->
+<!-- ========================================= -->
+
+<nav class="navbar navbar-expand-lg site-navbar">
+
+    <div class="container-fluid">
+
+        <a class="navbar-brand brand"
+   href="{% url 'home' %}">
+
+    <i class="fa-solid fa-spa"></i>
+    Sakura &amp; Ceylon 🌸
+
+</a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse"
+             id="mainNavbar">
+
+           <!-- Left -->
+
+<div class="me-auto d-flex flex-column flex-lg-row align-items-lg-center gap-2 mt-3 mt-lg-0 ms-lg-4 nav-links">
+
+    <a
+        class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+        href="{% url 'home' %}">
+
+        <i class="fa-solid fa-house"></i>
+        Home
+
+    </a>
+
+    <a
+        class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+        href="{% url 'about' %}">
+
+        <i class="fa-regular fa-user"></i>
+        About
+
+    </a>
+
+    <a
+        class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}"
+        href="{% url 'contact' %}">
+
+        <i class="fa-regular fa-envelope"></i>
+        Contact
+
+    </a>
+
+</div>
+
+            <!-- Right -->
+
+            <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2 mt-3 mt-lg-0">
+
+                {% if request.user.is_authenticated %}
+
+                <a
+                    href="{% url 'my_posts' %}"
+                    class="btn-outline-pink {% if request.resolver_match.url_name == 'my_posts' %}active{% endif %}">
+
+                    <i class="fa-regular fa-user"></i>
+                    My Posts
+
+                </a>
+
+                <a
+                    href="{% url 'post_create' %}"
+                    class="btn-outline-pink {% if request.resolver_match.url_name == 'post_create' %}active{% endif %}">
+
+                    <i class="fa-solid fa-plus"></i>
+                    New Post
+
+                </a>
+
+                <form method="post"
+                      action="{% url 'logout' %}"
+                      class="d-inline">
+
+                    {% csrf_token %}
+
+                    <button
+                        type="submit"
+                        class="btn-outline-pink">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+
+                    </button>
+
+                </form>
+
+                <span class="hi">
+
+                    <i class="fa-regular fa-user"></i>
+
+                    Hi, {{ request.user.username }}
+
+                </span>
+
+                {% else %}
+
+                <a
+                    href="{% url 'login' %}"
+                    class="btn-outline-pink">
+
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Login
+
+                </a>
+
+                <a
+                    href="{% url 'register' %}"
+                    class="btn-outline-pink">
+
+                    <i class="fa-solid fa-user-plus"></i>
+                    Register
+
+                </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- ========================================= -->
+<!-- Hero -->
+<!-- ========================================= -->
+
+{% block hero %}
+{% endblock %}
+
+<!-- ========================================= -->
+<!-- Messages -->
+<!-- ========================================= -->
+
+{% if messages %}
+
+<div class="container mt-3 page-container">
+
+    {% for message in messages %}
+
+    <div class="alert alert-{{ message.tags }}">
+
+        {{ message }}
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+<!-- ========================================= -->
+<!-- Main Content -->
+<!-- ========================================= -->
+
+<main class="container page-container mt-4">
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+<!-- ========================================= -->
+<!-- Footer -->
+<!-- ========================================= -->
+
+<footer class="site-footer">
+
+    <div class="container">
+
+        <h3>DjangoBlog</h3>
+
+        <p>
+            Stories, travel and life from two beautiful islands.
+        </p>
+
+        <div class="footer-icons">
+
+            <a href="#">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+
+            <a href="#">
+                <i class="fab fa-instagram"></i>
+            </a>
+
+            <a href="#">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+
+            <a href="#">
+                <i class="fab fa-github"></i>
+            </a>
+
+        </div>
+
+        <hr>
+
+        <small>
+
+            © 2026 DjangoBlog · Built with
+            <i class="fa-solid fa-heart"></i>
+            using Django
+
+        </small>
+
+    </div>
+
+</footer>
+
+<!-- ========================================= -->
+<!-- Bootstrap -->
+<!-- ========================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ========================================= -->
+<!-- Sakura Animation -->
+<!-- ========================================= -->
+
+<script src="{% static 'blog/js/script.js' %}"></script>
+
+{% block extra_js %}
+{% endblock %}
+
+
+<style id="colourCycleStyle">
+nav.site-navbar{ transition:background .8s, box-shadow .8s; }
+.site-navbar .brand, .site-navbar .brand i,
+.site-navbar .nav-links a, .site-navbar .btn-outline-pink,
+.site-navbar .hi i, .chip{ transition:color .8s, border-color .8s, background .8s; }
+</style>
+<script>
+/* colourCycle */
+(function () {
+  var colours = ["#e84a7f", "#8e44ad", "#2980b9", "#27ae60", "#e67e22"];
+  var i = 0;
+  function apply() {
+    var c = colours[i % colours.length];
+    var nav = document.querySelector("nav.site-navbar");
+    if (nav) {
+      nav.style.setProperty("background", c + "33", "important");
+      nav.style.setProperty("box-shadow", "0 8px 30px " + c + "66", "important");
+      nav.querySelectorAll(".brand, .brand i, .nav-links a, .hi i").forEach(function (e) {
+        e.style.setProperty("color", c, "important");
+      });
+      nav.querySelectorAll(".btn-outline-pink").forEach(function (e) {
+        e.style.setProperty("color", c, "important");
+        e.style.setProperty("border-color", c, "important");
+      });
+    }
+    document.querySelectorAll(".chip").forEach(function (e) {
+      e.style.setProperty("color", c, "important");
+      e.style.setProperty("background", c + "22", "important");
+    });
+    document.querySelectorAll(".section-title, .post-card .badge-cat, .arrow").forEach(function (e) {
+      if (e.classList.contains("section-title")) e.style.setProperty("color", c, "important");
+      else e.style.setProperty("background", c, "important");
+    });
+    i++;
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    apply();
+    setInterval(apply, 3000);
+  });
+})();
+</script>
+
+<style id="liveBubblesStyle">
+#bubbles{
+  position:fixed; inset:0; overflow:hidden;
+  pointer-events:none; z-index:5;
+  animation:bubbleHue 14s linear infinite;
+}
+@keyframes bubbleHue{
+  from{ filter:hue-rotate(0deg); }
+  to{ filter:hue-rotate(360deg); }
+}
+.bubble{
+  position:absolute; bottom:-120px; border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,
+    rgba(255,255,255,.95), rgba(232,74,127,.35) 55%, rgba(232,74,127,.15));
+  border:1px solid rgba(255,255,255,.8);
+  box-shadow:inset 0 0 12px rgba(255,255,255,.7), 0 0 14px rgba(232,74,127,.25);
+  opacity:.65;
+  animation:bubbleRise linear forwards;
+}
+@keyframes bubbleRise{
+  0%  { transform:translate(0,0) scale(.6); opacity:0; }
+  10% { opacity:.65; }
+  50% { transform:translate(40px,-55vh) scale(1); }
+  100%{ transform:translate(-30px,-125vh) scale(1.1); opacity:0; }
+}
+</style>
+<div id="bubbles"></div>
+<script>
+/* liveBubbles */
+(function () {
+  var box = document.getElementById("bubbles");
+  function make() {
+    if (!box || box.children.length > 40) return;
+    var b = document.createElement("span");
+    b.className = "bubble";
+    var size = 18 + Math.random() * 70;
+    b.style.width = size + "px";
+    b.style.height = size + "px";
+    b.style.left = Math.random() * 100 + "vw";
+    b.style.animationDuration = (8 + Math.random() * 9) + "s";
+    b.addEventListener("animationend", function () { b.remove(); });
+    box.appendChild(b);
+  }
+  for (var n = 0; n < 12; n++) setTimeout(make, n * 250);
+  setInterval(make, 450);
+})();
+</script>
+</body>
+
+</html>
