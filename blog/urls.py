@@ -3,10 +3,11 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    # Home (Show Post List as Home)
+
+    # Home
     path(
         "",
-        views.PostListView.as_view(),
+        views.home,
         name="home",
     ),
 
@@ -47,7 +48,7 @@ urlpatterns = [
         name="contact",
     ),
 
-    # Blog Posts
+    # Posts
     path(
         "posts/",
         views.PostListView.as_view(),

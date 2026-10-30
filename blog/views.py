@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.db import models
+from django.core.paginator import Paginator
 
 from .models import Post, Category
 from .forms import PostForm, RegisterForm
@@ -28,8 +29,14 @@ def home(request):
             category__name__iexact=category
         )
 
+    paginator = Paginator(posts, 6)
+
+    page_number = request.GET.get("page")
+
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        "page_obj": posts,
+        "page_obj": page_obj,
         "categories": Category.objects.all(),
     }
 
